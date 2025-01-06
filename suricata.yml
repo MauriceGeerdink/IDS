@@ -1,0 +1,24 @@
+  GNU nano 7.2                                                          install_snort.yml                                                                   ---
+- name: Install Suricata IDS
+  hosts: all
+  become: yes
+  tasks:
+    - name: Voeg Suricata repository toe
+      apt_repository:
+        repo: ppa:oisf/suricata-stable
+        state: present
+
+    - name: Werk apt-cache bij
+      apt:
+        update_cache: yes
+
+    - name: Installeer Suricata
+      apt:
+        name: suricata
+        state: present
+
+    - name: Start Suricata service
+      service:
+        name: suricata
+        state: started
+        enabled: yes
